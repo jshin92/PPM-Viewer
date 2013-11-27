@@ -13,6 +13,7 @@ public class Viewer {
         frame.setLayout(new BorderLayout());
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
 
         JButton openBtn = new JButton("Open");
         openBtn.addActionListener(new ActionListener() {
@@ -36,11 +37,13 @@ public class Viewer {
             }
         });
 
-        frame.setPreferredSize(new Dimension(600, 600));
+        frame.setPreferredSize(new Dimension(700, 700));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(label, BorderLayout.NORTH);
-        frame.add(new PPMFrame());
+        PPMFrame pf = new PPMFrame();
+        frame.add(pf);
         frame.add(openBtn, BorderLayout.SOUTH);
+
 
         frame.pack();
         frame.setVisible(true);

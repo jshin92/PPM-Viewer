@@ -2,19 +2,23 @@ import java.awt.*;
 import javax.swing.*;
 
 public class PPMFrame extends JPanel {
+
+    private int width    = 600;
+    private int height   = 600;
+    private int x_offset = 50;
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.RED);
-        //g.drawPolygon(x, y, x.length);
-        for (int i = 0; i < 400; i++) {
-            for (int j = 0; j < 400; j++) {
-                g.drawRect(j, i, 1,1 );
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width ; i++) {
+                g.drawRect(i + x_offset, j, 1,1 );
             }
         }
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(400, 400);
+        return new Dimension(width, height);
     }
 
 }
