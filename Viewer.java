@@ -32,9 +32,14 @@ public class Viewer {
                         isr = new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "ISO-8859-1");
                     } catch (Exception fnf) { System.err.println("Error initializing data input stream."); } 
                         try {
-                            if (!p.verifyHeaders(isr)) {
+                            // fetch the parameters given in the header
+                            Parameters params = p.verifyHeaders(isr);
+                            if (params == null) {
                                 System.exit(EXIT_FAILURE);
                             }
+                            System.out.println("PARAMS: ");
+                            System.out.println(params);
+
                         } catch (IOException exc) { System.err.println("IOError with isr read()"); }
                 } else {
                     System.err.println("Error opening file.");
