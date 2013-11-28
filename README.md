@@ -9,8 +9,8 @@ Build Instructions
 Requires: 
 * Java 7+
 
-To build this project, type `make`. 
+To build this project, type `make`
 
-To run the program, type `java Viewer`. 
+To run the program, type `java Viewer`
 
 
