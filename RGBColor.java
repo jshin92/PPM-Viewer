@@ -1,3 +1,6 @@
+/*
+ * RGBColor : A class that represents a color, given in RGB percentages
+ */
 public class RGBColor {
 
     private float red;
@@ -13,5 +16,4 @@ public class RGBColor {
     public float getRed()   { return red; }
     public float getGreen() { return green; }
     public float getBlue()  { return blue; }
-
 }

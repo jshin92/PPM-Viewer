@@ -1,11 +1,22 @@
 import java.io.*;
 import java.util.*;
 
+/*
+ * Parser : class that handles parsing of the binary PPM file
+ */
 public class Parser {
 
-    public HashMap<Coordinate, RGBColor> fetchColorMap(int width, int height, InputStreamReader isr) throws IOException {
-        HashMap<Coordinate, RGBColor> colormap = new HashMap<Coordinate, RGBColor>();
+    private int   width  = 0;
+    private int   height = 0;
+    private float maxVal = 0.0f;
 
+    /*
+     * Returns a mapping from Coordinate to Color. Every (x, y) coordinate 
+     * will have a matching RGB Color, so that the canvas knows what 
+     * color to use. 
+     */
+    public HashMap<Coordinate, RGBColor> fetchColorMap(InputStreamReader isr) throws IOException {
+        HashMap<Coordinate, RGBColor> colormap = new HashMap<Coordinate, RGBColor>();
         // 3 bytes per pixel, width * height pixels
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -15,7 +26,7 @@ public class Parser {
                 int colBlue  = isr.read();
                 int colGreen = isr.read();
 
-                RGBColor curColor = new RGBColor(colRed/255.0f, colBlue/255.0f, colGreen/255.0f);
+                RGBColor curColor = new RGBColor(colRed/maxVal, colBlue/maxVal, colGreen/maxVal);
                 colormap.put(curCoord, curColor);
             }
         }
@@ -23,7 +34,11 @@ public class Parser {
         return colormap;
     }
 
-
+    /*
+     * Verifies that we are indeed dealing with PPM (P6) file and 
+     * returns key paramaters, such as the width and the height of the
+     * ppm image, all enclosed in a Parameter class
+     */
     public Parameters verifyHeaders(InputStreamReader isr) throws IOException {
         int magic1 = isr.read();
         int magic2 = isr.read();
@@ -61,10 +76,12 @@ public class Parser {
 
         int maxVal = maxValHundredsPlace * 100 + maxValTensPlace * 10 + maxValOnesPlace;
 
-        System.out.println("max val " + maxVal);
-
         // consume newline
         isr.read();
+        
+        this.width  = width;
+        this.height = height;
+        this.maxVal = (float) maxVal;
 
         return new Parameters(width, height, maxVal);
     }

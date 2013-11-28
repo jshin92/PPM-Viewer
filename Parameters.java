@@ -1,3 +1,7 @@
+/*
+ * Represents the parameters that can be fetched
+ * from the header (e.g. magic number {P6}, width, height)
+ */ 
 public class Parameters {
 
     private int width  = 0;
@@ -19,7 +23,7 @@ public class Parameters {
     }
 
     public String toString() {
-        return new String("Width : " + width + ", Height : " + height + ", MaxVal : " + maxVal);
+        return new String("[width : " + width + "] | [height : " + height + "] | [maxVal : " + maxVal + "]");
     }
 
 }
