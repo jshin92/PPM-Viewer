@@ -1,6 +1,28 @@
 import java.io.*;
+import java.util.*;
 
 public class Parser {
+
+    public HashMap<Coordinate, RGBColor> fetchColorMap(int width, int height, InputStreamReader isr) throws IOException {
+        HashMap<Coordinate, RGBColor> colormap = new HashMap<Coordinate, RGBColor>();
+
+        // 3 bytes per pixel, width * height pixels
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                Coordinate curCoord = new Coordinate(j, i);
+
+                int colRed   = isr.read();
+                int colBlue  = isr.read();
+                int colGreen = isr.read();
+
+                RGBColor curColor = new RGBColor(colRed/255.0f, colBlue/255.0f, colGreen/255.0f);
+                colormap.put(curCoord, curColor);
+            }
+        }
+
+        return colormap;
+    }
+
 
     public Parameters verifyHeaders(InputStreamReader isr) throws IOException {
         int magic1 = isr.read();

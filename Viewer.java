@@ -10,6 +10,7 @@ public class Viewer {
     private static JLabel label = new JLabel("<File>");
     private static final int WINDOW_WIDTH  = 700;
     private static final int WINDOW_HEIGHT = 700;
+    private static PPMFrame pf = null;
     public static final int EXIT_FAILURE   = 1;
 
     private static void createGUI() throws Exception {
@@ -20,7 +21,7 @@ public class Viewer {
         frame.setResizable(false);
 
         JButton openBtn = new JButton("Open");
-        final Parser p = new Parser();
+        final Parser parser = new Parser();
         openBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser openFile = new JFileChooser();
@@ -33,12 +34,14 @@ public class Viewer {
                     } catch (Exception fnf) { System.err.println("Error initializing data input stream."); } 
                         try {
                             // fetch the parameters given in the header
-                            Parameters params = p.verifyHeaders(isr);
+                            Parameters params = parser.verifyHeaders(isr);
                             if (params == null) {
                                 System.exit(EXIT_FAILURE);
                             }
                             System.out.println("PARAMS: ");
                             System.out.println(params);
+                            pf.setPPMImage(parser.fetchColorMap(params.getWidth(), params.getHeight(), isr));
+
 
                         } catch (IOException exc) { System.err.println("IOError with isr read()"); }
                 } else {
@@ -51,7 +54,7 @@ public class Viewer {
         frame.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(label, BorderLayout.NORTH);
-        PPMFrame pf = new PPMFrame();
+        pf = new PPMFrame();
         frame.add(pf);
         frame.add(openBtn, BorderLayout.SOUTH);
 
