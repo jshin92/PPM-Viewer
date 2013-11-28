@@ -6,6 +6,9 @@ import java.util.*;
  */
 public class Parser {
 
+    private static final int ASCII_P = 80;
+    private static final int ASCII_6 = 54;
+
     private int   width  = 0;
     private int   height = 0;
     private float maxVal = 0.0f;
@@ -44,7 +47,7 @@ public class Parser {
         int magic2 = isr.read();
 
         // look for P6 bit pattern (binary PPM)
-        if (magic1 != 80 && magic2 != 54) {
+        if (magic1 != ASCII_P && magic2 != ASCII_6) {
             System.err.println("ERROR: MAGIC # P6 not found in header");
             return null;
         }

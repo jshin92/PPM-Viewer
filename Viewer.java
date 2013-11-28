@@ -22,7 +22,9 @@ public class Viewer {
             public void run() {
                 try {
                     createGUI();
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    Error("Error creating GUI", e);
+                }
             }
         });
     }
@@ -69,7 +71,7 @@ public class Viewer {
             try {
                 isr = new InputStreamReader(new FileInputStream(file.getAbsolutePath()), "ISO-8859-1");
             } catch (Exception fnf) { 
-                System.err.println("Error initializing data input stream."); 
+                Error("Error initializing data input stream.", fnf); 
             }
 
             try {
@@ -84,11 +86,23 @@ public class Viewer {
                 pf.setPPMImage(parser.fetchColorMap(isr));
 
             } catch (IOException exc) { 
-                System.err.println("IOError with isr read()"); 
+                Error("IOError with isr read()", exc); 
             }
         } else {
-            System.err.println("Error opening file.");
+            Error("Error opening file.");
         }
+    }
+
+
+    private static void Error(String msg, Exception e) {
+        System.err.println(msg);
+        if (e != null) 
+            e.printStackTrace();
+        System.exit(EXIT_FAILURE);
+    }
+
+    private static void Error(String msg) {
+        Error(msg, null);
     }
 
 
