@@ -14,3 +14,7 @@ To build this project, type `make`
 To run the program, type `java Viewer`
 
 
+Screenshots
+-----------
+![Alt text](/screenshots/ppm_viewer_ss.png?raw=true "Diffuse Test")
+
