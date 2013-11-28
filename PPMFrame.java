@@ -23,6 +23,7 @@ public class PPMFrame extends JPanel {
     // draw the ppm image
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.setColor(STARTUP_COLOR);
 
         for (int j = 0; j < height; j++) {
             for (int i = 0; i < width; i++) {
@@ -32,9 +33,7 @@ public class PPMFrame extends JPanel {
                     RGBColor rgbcolor   = colormap.get(curCoord);
                     Color curColor      = new Color(rgbcolor.getRed(), rgbcolor.getGreen(), rgbcolor.getBlue());
                     g.setColor(curColor);
-                } else {
-                    g.setColor(STARTUP_COLOR);
-                }
+                } 
                 g.drawRect(i + x_offset, j, 1,1 );
             }
         }
