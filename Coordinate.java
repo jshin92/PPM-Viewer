@@ -1,3 +1,7 @@
+/*
+ * Coordinate : a class that represents an (x, y) coordinate. 
+ */
+
 public class Coordinate {
 
     private static final int MAGIC_HASH_CONST = 51;
@@ -13,6 +17,9 @@ public class Coordinate {
     public int getX() { return x; }
     public int getY() { return y; }
 
+
+    // need to implement equals() and hashcode() so that 
+    // a coordinate can be a key in a hashmap
     public boolean equals(Object obj) {
         Coordinate other = (Coordinate) obj;
         return x == other.getX() && y == other.getY();
