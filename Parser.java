@@ -39,7 +39,7 @@ public class Parser {
 
     /*
      * Verifies that we are indeed dealing with PPM (P6) file and 
-     * returns key paramaters, such as the width and the height of the
+     * returns key parameters, such as the width and the height of the
      * ppm image, all enclosed in a Parameter class
      */
     public Parameters verifyHeaders(InputStreamReader isr) throws IOException {
@@ -47,7 +47,7 @@ public class Parser {
         int magic2 = isr.read();
 
         // look for P6 bit pattern (binary PPM)
-        if (magic1 != ASCII_P && magic2 != ASCII_6) {
+        if (magic1 != ASCII_P || magic2 != ASCII_6) {
             System.err.println("ERROR: MAGIC # P6 not found in header");
             return null;
         }
