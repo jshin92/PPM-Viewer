@@ -17,5 +17,5 @@ To run the program, type `java Viewer`
 Screenshots
 -----------
 Here is a sample of a diffuse test from the raytracer. 
-![Diffuse test result](/screenshots/ppm_viewer_ss.png?raw=true "Diffuse Test")
+![Diffuse test result](screenshots/ppm_viewer_ss.png?raw=true "Diffuse Test")
 
