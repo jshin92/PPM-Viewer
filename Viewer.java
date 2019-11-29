@@ -11,11 +11,13 @@ import java.nio.charset.Charset;
 public class Viewer {
 
     private static JLabel label = new JLabel("<File>");
-    private static final int WINDOW_WIDTH   = 700;
-    private static final int WINDOW_HEIGHT  = 700;
+    private static int WINDOW_WIDTH   = 700;
+    private static int WINDOW_HEIGHT  = 700;
+    private static final int PADDING = 100;
     private static final int EXIT_FAILURE   = 1;
     private static PPMFrame pf   = null;
     private static Parser parser = null;
+    private static JFrame frame = null;
 
     public static void main(String[] args)  {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -30,10 +32,10 @@ public class Viewer {
     }
 
     /*
-     * Creates the application's GUI. 
+     * Creates the application's GUI.
      */
     private static void createGUI() throws Exception {
-        JFrame frame = new JFrame("PPMViewer");
+        frame = new JFrame("PPMViewer");
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -43,7 +45,7 @@ public class Viewer {
         openBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser openFile = new JFileChooser();
-                loadData(openFile);   
+                loadData(openFile);
             }
         });
 
@@ -83,7 +85,9 @@ public class Viewer {
                 }
                 System.out.println("--PARAMS--");
                 System.out.println(params);
-                pf.setPPMImage(parser.fetchColorMap(isr));
+                pf.setPPMImage(parser.fetchColorMap(isr), params.getWidth(), params.getHeight());
+                frame.setPreferredSize(new Dimension(params.getWidth() + PADDING, params.getHeight() + PADDING));
+                frame.pack();
 
             } catch (IOException exc) { 
                 Error("IOError with isr read()", exc); 

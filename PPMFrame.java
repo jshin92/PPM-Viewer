@@ -15,7 +15,9 @@ public class PPMFrame extends JPanel {
     private static final Color STARTUP_COLOR = new Color(0.1f, 0.2f, 0.6f);
 
     // obtain the colormap from the parser
-    public void setPPMImage(HashMap<Coordinate, RGBColor> colormap) {
+    public void setPPMImage(HashMap<Coordinate, RGBColor> colormap, int width, int height) {
+        this.width = width;
+        this.height = height;
         this.colormap = colormap;
         repaint();
     }
@@ -33,16 +35,10 @@ public class PPMFrame extends JPanel {
                     RGBColor rgbcolor   = colormap.get(curCoord);
                     Color curColor      = new Color(rgbcolor.getRed(), rgbcolor.getGreen(), rgbcolor.getBlue());
                     g.setColor(curColor);
-                } 
+                }
                 g.drawRect(i + x_offset, j, 1,1 );
             }
         }
-    }
-
-    public void setDimensions(int width, int height) {
-        this.width  = width;
-        this.height = height;
-        repaint();
     }
 
     public Dimension getPreferredSize() {
