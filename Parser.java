@@ -8,6 +8,8 @@ public class Parser {
 
     private static final int ASCII_P = 80;
     private static final int ASCII_6 = 54;
+    private static final int ASCII_SPACE = 32;
+    private static final int ASCII_NEWLINE = 10;
 
     private int   width  = 0;
     private int   height = 0;
@@ -55,38 +57,23 @@ public class Parser {
         // consume newline
         isr.read();
 
-        int widthHundredsPlace = isr.read() - '0';
-        int widthTensPlace     = isr.read() - '0';
-        int widthOnesPlace     = isr.read() - '0';
+        this.width = parseNumber(isr, ASCII_SPACE);
+        this.height = parseNumber(isr, ASCII_NEWLINE);
+        this.maxVal = parseNumber(isr, ASCII_NEWLINE);
 
-        int width = widthHundredsPlace * 100 + widthTensPlace* 10 + widthOnesPlace;
+        return new Parameters(this.width, this.height, (int)this.maxVal);
+    }
 
-        // consume space
-        isr.read();
+    private int parseNumber(InputStreamReader isr, int delimeter) throws IOException {
+        int res = 0;
 
-        int heightHundredsPlace = isr.read() - '0';
-        int heightTensPlace     = isr.read() - '0';
-        int heightOnesPlace     = isr.read() - '0';
+        int cur = isr.read();
+        while (cur != delimeter) {
+            res = res * 10 + cur - '0';
+            cur = isr.read();
+        }
 
-        int height = heightHundredsPlace * 100 + heightTensPlace * 10 + heightOnesPlace;
-
-        // consume space
-        isr.read();
-
-        int maxValHundredsPlace = isr.read() - '0';
-        int maxValTensPlace     = isr.read() - '0';
-        int maxValOnesPlace     = isr.read() - '0';
-
-        int maxVal = maxValHundredsPlace * 100 + maxValTensPlace * 10 + maxValOnesPlace;
-
-        // consume newline
-        isr.read();
-        
-        this.width  = width;
-        this.height = height;
-        this.maxVal = (float) maxVal;
-
-        return new Parameters(width, height, maxVal);
+        return res;
     }
 
 }
